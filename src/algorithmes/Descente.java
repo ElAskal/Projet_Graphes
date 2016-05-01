@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 public class Descente {
 	private static final int MAX_STEP = 1000;
-	private static final double SAME_APPROX = 1.2;
+	private static final double SAME_APPROX = 0.7;
 	ArrayList<Sommet> class1 = new ArrayList<Sommet>();
 	ArrayList<Sommet> class2 = new ArrayList<Sommet>();
 	
@@ -13,19 +13,18 @@ public class Descente {
 		if(G.getSommets().size() < 2)
 			throw new InvalidArgumentException("Graphe à un seul sommet");
 		Iterator<Sommet> it = G.getSommets().iterator();
-		class1.add(it.next()); // Problème de division par 0
-		class2.add(it.next());
 		while(it.hasNext()){
-			if(estEquilibre())
-				class1.add(it.next());
+			Sommet s = it.next();
+			if(s.getLabel() % 2 == 1)
+				class1.add(s);
 			else
-				class2.add(it.next());
+				class2.add(s);
 		}
 		return calculSol();
 	}
 	
-	public boolean estEquilibre(){
-		if(class1.size() == class2.size() || Math.max(class1.size(), class2.size()) / Math.min(class1.size(), class2.size()) <= SAME_APPROX)
+	public boolean estEquilibre(Graphe G){
+		if(class1.size() == class2.size() || Math.max(class1.size(), class2.size()) / G.getSommets().size() > SAME_APPROX)
 			return true;
 		return false;
 	}
@@ -47,14 +46,14 @@ public class Descente {
 				if(class1.contains(s)){
 					class1.remove(s);
 					class2.add(s);
-					if(!estEquilibre()){
+					if(!estEquilibre(G)){
 						class1.add(class2.remove(0));
 					}						
 				}
 				else{
 					class2.remove(s);
 					class1.add(s);
-					if(!estEquilibre()){
+					if(!estEquilibre(G)){
 						class2.add(class1.remove(0));
 					}
 				}
