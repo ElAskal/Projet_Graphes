@@ -16,7 +16,7 @@ public class Descente {
 		class1.add(it.next()); // Problème de division par 0
 		class2.add(it.next());
 		while(it.hasNext()){
-			if(class1.size() == class2.size() || Math.max(class1.size(), class2.size()) / Math.min(class1.size(), class2.size()) <= SAME_APPROX)
+			if(estEquilibre())
 				class1.add(it.next());
 			else
 				class2.add(it.next());
@@ -24,15 +24,60 @@ public class Descente {
 		return calculSol();
 	}
 	
-	public void descente(Graphe G, int start) throws InvalidArgumentException{
-		descente_init(G);
-		
+	public boolean estEquilibre(){
+		if(class1.size() == class2.size() || Math.max(class1.size(), class2.size()) / Math.min(class1.size(), class2.size()) <= SAME_APPROX)
+			return true;
+		return false;
+	}
+	
+	public int descente(Graphe G, Sommet start) throws InvalidArgumentException{
+		if(!class1.contains(start) && !class2.contains(start))
+			throw new InvalidArgumentException("Sommet absent du graphe");
+		int solOpt = descente_init(G); // Voisinage de la sol courante = 1 swap de sommets
+		int solAct, solCheck = solOpt;
+		int step = 0;
+		do{
+			solCheck = solOpt;
+			ArrayList<Sommet> voisins = start.getVoisins();
+			voisins.add(0, start);
+			Iterator<Sommet> it = voisins.iterator();
+			while(it.hasNext() && step < MAX_STEP){
+				step++;
+				Sommet s = it.next();
+				if(class1.contains(s)){
+					class1.remove(s);
+					class2.add(s);
+					if(!estEquilibre()){
+						class1.add(class2.remove(0));
+					}						
+				}
+				else{
+					class2.remove(s);
+					class1.add(s);
+					if(!estEquilibre()){
+						class2.add(class1.remove(0));
+					}
+				}
+				solAct = calculSol();
+				if (solAct < solOpt)
+				solOpt = solAct;
+			}
+			start = voisins.get(1);
+		}
+		while(solCheck != solOpt && step < MAX_STEP);
+		return solOpt;	
 	}
 	
 	public int calculSol(){
+		int sol = 0;
 		for(int i = 0; i < class1.size(); i++){
-			Sommet s = class1.get(i);	
+			Sommet s = class1.get(i);
+			Iterator<Sommet> it = s.getVoisins().iterator();
+			while(it.hasNext()){
+				if(class2.contains(it.next()))
+					sol++;
+			}
 		}
-		return 0;
+		return sol;
 	}
 }
