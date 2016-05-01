@@ -1,5 +1,4 @@
 package algorithmes;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -7,26 +6,26 @@ import java.util.Queue;
 public class BFS {
 	private static final int infinity = Integer.MAX_VALUE;
 	private int distance[]; // Nombre d'arêtes du plus court chemin entre le sommet source et le sommet considéré.
-	private int parent[]; // Sommet parent du sommet considéré
 	private boolean exploré[]; // Vrai s'il y a un chemin entre le sommet source et le sommet considéré.
 
-	public void bfs(Graphe G, int s){
-		Queue<Integer> q = new LinkedList<Integer>();
-		for(int v = 1; v < G.nbSommets; v++){
-			distance[v] = infinity;
+	public void bfs(Graphe G, Sommet s){
+		Queue<Sommet> q = new LinkedList<Sommet>();
+		Iterator<Sommet> it = G.getSommets().iterator();
+		while(it.hasNext()){
+			distance[it.next().getLabel()] = infinity;
 		}
-		distance[s] = 0;
-		exploré[s] = true;
+		distance[s.getLabel()] = 0;
+		exploré[s.getLabel()] = true;
 		q.add(s);
 		while(!(q.isEmpty())){
-			int w = q.remove();
-			Iterator<Integer> it = G.voisins(w).iterator();
-			while(it.hasNext()){
-				int x = it.next();
-				if (!exploré[x]){
-					exploré[x] = true;
-					parent[x] = w;
-					distance[x] = distance[w] + 1;
+			Sommet w = q.remove();
+			Iterator<Sommet> it2 = w.getVoisins().iterator();
+			while(it2.hasNext()){
+				Sommet x = it2.next();
+				if (!exploré[x.getLabel()]){
+					exploré[x.getLabel()] = true;
+					x.setParent(w);
+					distance[x.getLabel()] = distance[w.getLabel()] + 1;
 					q.add(x);
 				}
 			}

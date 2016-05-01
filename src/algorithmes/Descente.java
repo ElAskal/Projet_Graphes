@@ -6,13 +6,13 @@ import java.util.Iterator;
 public class Descente {
 	private static final int MAX_STEP = 1000;
 	private static final double SAME_APPROX = 1.2;
-	ArrayList<Integer> class1 = new ArrayList<Integer>();
-	ArrayList<Integer> class2 = new ArrayList<Integer>();
+	ArrayList<Sommet> class1 = new ArrayList<Sommet>();
+	ArrayList<Sommet> class2 = new ArrayList<Sommet>();
 	
-	public void descente_init(Graphe G) throws InvalidArgumentException{
-		if(G.getSommets.size() < 2)
+	public int descente_init(Graphe G) throws InvalidArgumentException{
+		if(G.getSommets().size() < 2)
 			throw new InvalidArgumentException("Graphe à un seul sommet");
-		Iterator<Integer> it = G.getSommets.iterator();
+		Iterator<Sommet> it = G.getSommets().iterator();
 		class1.add(it.next()); // Problème de division par 0
 		class2.add(it.next());
 		while(it.hasNext()){
@@ -20,11 +20,19 @@ public class Descente {
 				class1.add(it.next());
 			else
 				class2.add(it.next());
-		}	
+		}
+		return calculSol();
 	}
 	
-	public void descente(Graphe G, int start){
+	public void descente(Graphe G, int start) throws InvalidArgumentException{
 		descente_init(G);
 		
+	}
+	
+	public int calculSol(){
+		for(int i = 0; i < class1.size(); i++){
+			Sommet s = class1.get(i);	
+		}
+		return 0;
 	}
 }
