@@ -19,20 +19,7 @@ public class Descente extends Algo{
 			while(it.hasNext() && step < MAX_STEP){ // Descente n'est pas une métaheuristique, MAX_STEP à virer ?
 				step++;
 				Sommet s = it.next();
-				if(class1.contains(s)){
-					class1.remove(s);
-					class2.add(s);
-					if(!estEquilibre(G)){
-						class1.add(class2.remove(0));
-					}						
-				}
-				else{
-					class2.remove(s);
-					class1.add(s);
-					if(!estEquilibre(G)){
-						class2.add(class1.remove(0));
-					}
-				}
+				generateSolVoisine(G, s);
 				int solAct = calculSol();
 				if (solAct < solOpt){
 					solOpt = solAct;

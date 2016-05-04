@@ -43,5 +43,22 @@ public class Algo {
 		}
 		return sol;
 	}
+	
+	public void generateSolVoisine(Graphe G, Sommet s){
+		if(class1.contains(s)){
+			class1.remove(s);
+			class2.add(s);
+			if(!estEquilibre(G)){
+				class1.add(class2.remove(0));
+			}						
+		}
+		else{
+			class2.remove(s);
+			class1.add(s);
+			if(!estEquilibre(G)){
+				class2.add(class1.remove(0));
+			}
+		}
+	}
 
 }
