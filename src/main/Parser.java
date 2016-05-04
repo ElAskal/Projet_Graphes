@@ -1,14 +1,13 @@
-package algorithmes;
+package main;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import graphe.Arête;
+import graphe.Graphe;
+import graphe.Sommet;
  
 
 public class Parser {
@@ -135,6 +134,7 @@ public class Parser {
 		i=fr.read(); 
 		}
 		Graphe g = new Graphe(sommets, arêtes, poidsTotal);
+		fr.close();
 		return g;
 	}
 }

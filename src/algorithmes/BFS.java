@@ -3,6 +3,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import graphe.Graphe;
+import graphe.Sommet;
+
 public class BFS {
 	private static final int infinity = Integer.MAX_VALUE;
 	private int distance[]; // Nombre d'arêtes du plus court chemin entre le sommet source et le sommet considéré.

@@ -3,6 +3,10 @@ package algorithmes;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import graphe.Graphe;
+import graphe.Sommet;
+import main.InvalidArgumentException;
+
 public class Descente extends Algo{
 	
 	public int descente(Graphe G, Sommet start) throws InvalidArgumentException{

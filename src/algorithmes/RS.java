@@ -3,6 +3,10 @@ package algorithmes;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import graphe.Graphe;
+import graphe.Sommet;
+import main.InvalidArgumentException;
+
 public class RS extends Algo{
 	private static final double lambda = 0.99;
 	/*  s := s0 // état de nos classes
@@ -58,20 +62,7 @@ public class RS extends Algo{
 		Iterator<Sommet> it = voisins.iterator();
 		while(it.hasNext()){
 			Sommet s = it.next();
-			if(class1.contains(s)){
-				class1.remove(s);
-				class2.add(s);
-				if(!estEquilibre(G)){
-					class1.add(class2.remove(0));
-				}						
-			}
-			else{
-				class2.remove(s);
-				class1.add(s);
-				if(!estEquilibre(G)){
-					class2.add(class1.remove(0));
-				}
-			}
+			generateSolVoisine(G, s);
 			int solAct = calculSol();
 			results.add(solAct);
 			moyenne+= solAct;

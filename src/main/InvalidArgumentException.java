@@ -1,4 +1,4 @@
-package algorithmes;
+package main;
 
 public class InvalidArgumentException extends Exception {
 

@@ -3,6 +3,10 @@ package algorithmes;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import graphe.Graphe;
+import graphe.Sommet;
+import main.InvalidArgumentException;
+
 public class Algo {
 	protected static final int MAX_STEP = 1000; // Adapter MAX_STEP au nombre de sommets du graphe ? 
 	private static final double SAME_APPROX = 0.7;

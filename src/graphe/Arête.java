@@ -1,4 +1,4 @@
-package algorithmes;
+package graphe;
 
 public class Arête {
 	private Sommet s1;
