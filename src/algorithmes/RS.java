@@ -22,9 +22,9 @@ public class RS extends Algo{
 		int solOpt = init(G); // Voisinage de la sol courante = 1 swap de sommets
 		int step = 0;
 		int solCheck = 0;
+		int temp = init_temp(solOpt, G, start);
 		do{
 			solCheck = solOpt;
-			int temp = init_temp(solOpt, G, start);
 			ArrayList<Sommet> voisins = start.getVoisins();
 			voisins.add(0, start);
 			Iterator<Sommet> it = voisins.iterator();
