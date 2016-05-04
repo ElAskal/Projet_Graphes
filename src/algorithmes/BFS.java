@@ -34,4 +34,17 @@ public class BFS {
 			}
 		}
 	}
+	
+	/* Donc ça en fait c'est le code de BFS pour le voyageur de commerce.
+	 * Notre problème à nous c'est de partitionner un graphe en deux classes "équitables",
+	 * sachant que la somme des poids des sommets n'étant pas dans la même classe (notée sp)
+	 * doit être minimale. Pour cela, on a déjà plusieurs fonctions (cf Algo.java) :
+	 *     - init nous génère deux classes équitables.
+	 *     - calculSol calcule sp en fonction des classes
+	 *     - generateSolVoisine génère une solution voisine à celle actuelle (swap de nos classes, inutile ici)
+	 * Ton but est de parcourir tout le graphe (méthode exacte) et d'énumérer TOUTES les solutions possibles (voir sujet, print des arraylist class ?).
+	 * Toute l'astuce étant que comme le poids des arêtes est toujours 1, on peut tenter de travailler directement 
+	 * avec les arêtes plutôt que les listes de voisins (les deux sont possibles, toi qui vois ce que tu préfères).
+	 * Wikipédia : Parcours en largeur + code en haut + harcèlement sur Skype pour t'aider.
+	 */
 }
