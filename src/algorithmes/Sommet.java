@@ -14,6 +14,14 @@ public class Sommet {
 		this.label = label;
 		this.parent = parent;
 	}
+	
+	public Sommet (int label)
+	{
+		this.label = label;
+		this.poids = 0;
+		this.voisins = new ArrayList<Sommet>();
+		this.parent = null;
+	}
 
 	public Sommet getParent() {
 		return parent;
@@ -45,5 +53,11 @@ public class Sommet {
 
 	public void setLabel(int label) {
 		this.label = label;
+	}
+	public String toString()
+	{
+		String s = new String();
+		s += this.getLabel(); 
+		return s;
 	}
 }
