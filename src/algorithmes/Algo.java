@@ -37,7 +37,7 @@ public class Algo {
 		Iterator<Sommet> it = G.getSommets().iterator();
 		while(it.hasNext()){
 			Sommet s = it.next();
-			if(s.getLabel() % 2 == 1)
+			if(s.getLabel() <= G.getSommets().size() / 2)
 				class1.add(s);
 			else
 				class2.add(s);
@@ -72,23 +72,6 @@ public class Algo {
 		return sol;
 	}
 	
-	public void generateSolVoisine(Graphe G, Sommet s) throws InvalidArgumentException{
-		if(class1.contains(s)){
-			class1.remove(s);
-			class2.add(s);
-			if(!estEquilibre(G)){
-				class1.add(class2.remove(0));
-			}						
-		}
-		else{
-			class2.remove(s);
-			class1.add(s);
-			if(!estEquilibre(G)){
-				class2.add(class1.remove(0));
-			}
-		}
-	}
-	
 	public void setClass1opt(ArrayList<Sommet> class1opt) {
 		this.class1opt = class1opt;
 	}
@@ -107,5 +90,8 @@ public class Algo {
 		class1opt.clear();
 		class2opt.clear();
 	}
-
+	
+	public String toString(){
+		return class1opt.toString() + class2opt.toString() + solOpt;
+	}
 }

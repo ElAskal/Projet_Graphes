@@ -16,8 +16,8 @@ public class RS extends Algo{
 		super();
 	}
 	
-	public void setRS(Graphe G, Sommet s, RS r) throws InvalidArgumentException{
-		r = recuit(G, s);
+	public void setRS(Graphe G, RS r) throws InvalidArgumentException{
+		r = recuit(G);
 	}
 
 	private static final double lambda = 0.99;
@@ -32,58 +32,66 @@ public class RS extends Algo{
   			k := k + 1
 		retourne s */
 	
-	public RS recuit(Graphe G, Sommet start) throws InvalidArgumentException{
-		if(!G.getSommets().contains(start))
-			throw new InvalidArgumentException("Sommet absent du graphe");
+	@SuppressWarnings("unchecked")
+	public RS recuit(Graphe G) throws InvalidArgumentException{
 		solOpt = init(G); // Voisinage de la sol courante = 1 swap de sommets
 		int step = 0;
 		int solCheck = 0;
-		int temp = init_temp(solOpt, G, start);
+		int temp = init_temp(solOpt, G);
 		do{
 			solCheck = solOpt;
-			ArrayList<Sommet> voisins = start.getVoisins();
-			voisins.add(0, start);
-			Iterator<Sommet> it = voisins.iterator();
-			while(it.hasNext() && step < MAX_STEP){
-				step++;
-				Sommet s = it.next();
-				generateSolVoisine(G, s);
-				int solAct = calculSol();
-				if((solAct < solOpt) || (Math.random() <= Math.exp(-((solAct - solOpt) / temp)))){
-					solOpt = solAct;
-					class1opt = class1;
-					class2opt = class2;
+			for(int i = 0; i < class1.size(); i++){
+				for(int j = 0; j < class1.size(); j++){
+					step++;
+					class1.add(class1.size(), class2.remove(i));
+					class2.add(class2.size(), class1.remove(j));
+					int solAct = calculSol();
+					if((solAct < solOpt) || (Math.random() <= Math.exp(-((solAct - solOpt) / temp)))){
+						solOpt = solAct;
+						setClass1opt((ArrayList<Sommet>) class1.clone());
+						setClass2opt((ArrayList<Sommet>) class2.clone());
+					}
+					if(step >= MAX_STEP)
+						return new RS(class1opt, class2opt, solOpt);
 				}
 			}
-			start = voisins.get(1);
 			temp *= lambda;
+			if(temp == 0)
+				temp = init_temp(solOpt, G);
 		}
 		while(step < MAX_STEP && solCheck != solOpt);
 		return new RS(class1opt, class2opt, solOpt);
 		
 	}
 	
-	public int init_temp(int solOpt, Graphe G, Sommet start) throws InvalidArgumentException{
-		class1opt = class1; // Save init of class
-		class2opt = class2;
+	@SuppressWarnings("unchecked")
+	public int init_temp(int solOpt, Graphe G) throws InvalidArgumentException{
+		if(G.getArêtes().size() == 0)
+			throw new InvalidArgumentException("Graphe sans arêtes");
+		class1opt = (ArrayList<Sommet>) class1.clone(); // Save init of class
+		class2opt = (ArrayList<Sommet>) class2.clone();
 		int temp = 0;
 		int moyenne = 0;
-		ArrayList<Integer> results = new ArrayList<Integer>();
-		ArrayList<Sommet> voisins = start.getVoisins();
+		int index = 0;
+		ArrayList<Sommet> voisins = G.getSommets().get(index).getVoisins();
+		while(voisins.size() == 0){
+			index++;
+			voisins = G.getSommets().get(index).getVoisins();
+		}
 		int size_v = voisins.size();
 		Iterator<Sommet> it = voisins.iterator();
 		while(it.hasNext()){
-			Sommet s = it.next();
-			generateSolVoisine(G, s);
+			it.next();
+			class1.add(class1.size(), class2.remove(0));
+			class2.add(class2.size(), class1.remove(class1.size() - 2));
 			int solAct = calculSol();
-			results.add(solAct);
 			moyenne+= solAct;
 		}
 		moyenne /= size_v; // Proba = DeltaSol / T, on veut une température qui accepte 50% des solutions au début.
-		temp = (solOpt - moyenne) * 2;
-		class1 = class1opt;
-		class2 = class2opt;
-		return temp;
+		temp = (moyenne - solOpt) * 2;
+		class1 = (ArrayList<Sommet>) class1opt.clone();
+		class2 = (ArrayList<Sommet>) class2opt.clone();
+		return Math.abs(temp) - 1;
 	}
 	
 }

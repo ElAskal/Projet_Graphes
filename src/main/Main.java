@@ -10,6 +10,8 @@ import graphe.Graphe;
 import graphe.Sommet;
 import algorithmes.BFS;
 import algorithmes.Descente;
+import algorithmes.RS;
+import algorithmes.Tabou;
 
 public class Main {
 	
@@ -137,10 +139,16 @@ public class Main {
 	}
 	
 	public static void main(String[] args) throws IOException, InvalidArgumentException{
-		String path = "Graphes/quatreSommets.txt";
+		String path = "Graphes/trenteSommets.txt";
 		Graphe g = parse(path);
 		Descente d = new Descente();
 		d.setDescente(g, d, false);
-		System.out.println(d.toString());
+		System.out.println("Descente :"+d.toString()+"\n");
+		RS rs = new RS();
+		rs.setRS(g, rs);
+		System.out.println("RS :"+rs.toString()+"\n");
+		Tabou tabou = new Tabou();
+		tabou.setTabou(g, tabou);
+		System.out.println("Tabou :"+tabou.toString()+"\n");
 	}
 }
