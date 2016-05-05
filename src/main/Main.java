@@ -9,6 +9,7 @@ import graphe.Arête;
 import graphe.Graphe;
 import graphe.Sommet;
 import algorithmes.BFS;
+import algorithmes.Descente;
 
 public class Main {
 	
@@ -136,9 +137,10 @@ public class Main {
 	}
 	
 	public static void main(String[] args) throws IOException, InvalidArgumentException{
-		String path = "../../Graphes/quatreSommets.txt";
+		String path = "Graphes/quatreSommets.txt";
 		Graphe g = parse(path);
-		BFS b = new BFS();
-		b.setBFS(g, g.getSommets().get(0), b);
+		Descente d = new Descente();
+		d.setDescente(g, d, false);
+		System.out.println(d.toString());
 	}
 }
