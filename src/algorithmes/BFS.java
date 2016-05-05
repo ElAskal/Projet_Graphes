@@ -1,6 +1,10 @@
 package algorithmes;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -18,76 +22,89 @@ public class BFS extends Algo{
 		super();
 	}
 	
-	public void setBFS(Graphe G, Sommet s, BFS b) throws InvalidArgumentException{
+	public void setBFS(Graphe G, Sommet s, BFS b) throws InvalidArgumentException, IOException{
 		b = bfs(G, s);
 	}
 
-	private boolean exploré[]; // Vrai s'il y a un chemin entre le sommet source et le sommet considéré.
-
-	public BFS bfs(Graphe G, Sommet s) throws InvalidArgumentException{
+	public BFS bfs(Graphe G, Sommet s) throws InvalidArgumentException, IOException{
 		clean();
 		Queue<Sommet> q = new LinkedList<Sommet>();
 		Stack<Sommet> stack = new Stack<Sommet>();
-		exploré[s.getLabel() - 1] = true;
+		LinkedHashMap<Integer, Boolean> estDansClass1 = new LinkedHashMap<Integer, Boolean>();
+		Iterator<Sommet> it = G.getSommets().iterator();
+		while(it.hasNext())
+			estDansClass1.put(it.next().getLabel(), false);
 		q.add(s);
 		stack.add(s);
-		while(!(q.isEmpty()) && !(stack.isEmpty())){
+		while(!(stack.isEmpty())){
 			Sommet w ;
 			if (!q.isEmpty())
 			{
 				w = q.remove();
-				stack.add(w);
+				if (stack.peek() != w)
+				{
+					stack.add(w);
+				}
 			}
 			else
 			{
 				w = stack.pop();
-				q.add(w);
 			}
-			if (exploré[w.getLabel() - 1] == false)
-			{
-				class1.add(w);
-				exploré[w.getLabel() - 1] = true;
-			}
-			else
-			{
-				class2.add(w);
-				exploré[w.getLabel()- 1] = false;
-			}
-			if (calculSol() < solOpt)
-			{
+			System.out.println(calculSol());
 				if(class1.contains(w) || class2.contains(w))
 				{
-					if(estEquilibre(G) && class1.size() + class2.size() == G.getSommets().size() )
+					System.out.println("Ping");
+					if(estEquilibre(G) && (class1.size() + class2.size() == G.getSommets().size()) && (calculSol() < solOpt))
 					{
-						class1opt = class1;
-						class2opt = class2;
+						setClass1opt((ArrayList<Sommet>) class1.clone());
+						setClass2opt((ArrayList<Sommet>) class2.clone());
 						solOpt = calculSol();
 					}
-					if (class1.contains(s))
+					if (class1.contains(w))
 					{
-						class1.remove(w.getLabel() - 1);
+						class1.remove(w);
+						q.add(w);
 					}
 					else
 					{
-						class2.remove(w.getLabel() - 1);
+						System.out.println("Pong");
+						class2.remove(w);
 					}
-				}
-			}
-			else 
-			{
-				Iterator<Sommet> it2 = w.getVoisins().iterator();
-				while(it2.hasNext())
+				}			
+				else 
 				{
-					Sommet x = it2.next();
-					if (!class1.contains(x) && !class2.contains(x))
+					if (estDansClass1.get(w.getLabel()) == false)
 					{
-						x.setParent(w);
-						q.add(x);
+						class1.add(w);
+						estDansClass1.put(w.getLabel(), true);
+					}
+					else
+					{
+						class2.add(w);
+						estDansClass1.put(w.getLabel(), false);
+					}
+					Iterator<Sommet> it2 = w.getVoisins().iterator();
+					while(it2.hasNext())
+					{
+						Sommet x = it2.next();
+						if (!class1.contains(x) && !class2.contains(x) && !q.contains(x))
+						{
+							x.setParent(w);
+							q.add(x);
+						}
 					}
 				}
-			}
+			System.out.println(class1.toString());
+			System.out.println(class2.toString());
+			System.out.println(solOpt);
+			System.out.println("\n _____\n");
 		}
 		return new BFS(class1opt, class2opt, solOpt);
+	}
+	
+	public String toString()
+	{
+		return class1opt.toString() + " \n" + class2opt.toString() + "\n" + solOpt;
 	}
 }
 
