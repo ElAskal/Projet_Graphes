@@ -8,7 +8,7 @@ import graphe.Sommet;
 import main.InvalidArgumentException;
 
 public class Algo {
-	protected static final int MAX_STEP = 1000; // Adapter MAX_STEP au nombre de sommets du graphe ? 
+	protected static int MAX_STEP = 1000; // Peut être adapté en fonction du graphe avec setMaxStep() 
 	private static final double SAME_APPROX = 0.7;
 	ArrayList<Sommet> class1 = new ArrayList<Sommet>();
 	ArrayList<Sommet> class2 = new ArrayList<Sommet>();
@@ -18,6 +18,7 @@ public class Algo {
 	public int init(Graphe G) throws InvalidArgumentException{
 		if(G.getSommets().size() < 2)
 			throw new InvalidArgumentException("Graphe vide ou à un seul sommet");
+		setMaxStep(G);
 		Iterator<Sommet> it = G.getSommets().iterator();
 		while(it.hasNext()){
 			Sommet s = it.next();
@@ -65,6 +66,10 @@ public class Algo {
 				class2.add(class1.remove(0));
 			}
 		}
+	}
+	
+	public void setMaxStep(Graphe G){
+		MAX_STEP = (int) Math.pow(G.getSommets().size(), 3);
 	}
 
 }
