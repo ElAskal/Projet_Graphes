@@ -11,7 +11,19 @@ import graphe.Sommet;
 import main.InvalidArgumentException;
 
 public class Tabou extends Algo{
-	public int tabou(Graphe G, Sommet start) throws InvalidArgumentException{
+	public Tabou(ArrayList<Sommet> class1opt, ArrayList<Sommet> class2opt, int solOpt) {
+		super(class1opt, class2opt, solOpt);
+	}
+	
+	public Tabou(){
+		super();
+	}
+	
+	public void setTabou(Graphe G, Sommet s, Tabou t) throws InvalidArgumentException{
+		t = tabou(G, s);
+	}
+
+	public Tabou tabou(Graphe G, Sommet start) throws InvalidArgumentException{
 		if(!G.getSommets().contains(start))
 			throw new InvalidArgumentException("Sommet absent du graphe");
 		int solOpt = init(G); // Voisinage de la sol courante = 1 swap de sommets
@@ -52,6 +64,6 @@ public class Tabou extends Algo{
 			start = voisins.get(1);
 		}
 		while(step < MAX_STEP && solCheck != solOpt);
-		return solOpt;
+		return new Tabou(class1opt, class2opt, solOpt);
 	}
 }

@@ -14,7 +14,20 @@ public class Algo {
 	ArrayList<Sommet> class2 = new ArrayList<Sommet>();
 	ArrayList<Sommet> class1opt = new ArrayList<Sommet>();
 	ArrayList<Sommet> class2opt = new ArrayList<Sommet>();
+	int solOpt;
 	
+	public Algo(ArrayList<Sommet> class1opt,
+			ArrayList<Sommet> class2opt, int solOpt) {
+		super();
+		this.class1opt = class1opt;
+		this.class2opt = class2opt;
+		this.solOpt = solOpt;
+	}
+	
+	public Algo(){
+		
+	}
+
 	public int init(Graphe G) throws InvalidArgumentException{
 		if(G.getSommets().size() < 2)
 			throw new InvalidArgumentException("Graphe vide ou à un seul sommet");

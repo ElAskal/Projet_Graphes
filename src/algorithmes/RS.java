@@ -8,6 +8,18 @@ import graphe.Sommet;
 import main.InvalidArgumentException;
 
 public class RS extends Algo{
+	public RS(ArrayList<Sommet> class1opt, ArrayList<Sommet> class2opt, int solOpt) {
+		super(class1opt, class2opt, solOpt);
+	}
+	
+	public RS(){
+		super();
+	}
+	
+	public void setRS(Graphe G, Sommet s, RS r) throws InvalidArgumentException{
+		r = recuit(G, s);
+	}
+
 	private static final double lambda = 0.99;
 	/*  s := s0 // état de nos classes
 		e := E(s) // E = calculSol, e = solOpt
@@ -20,10 +32,10 @@ public class RS extends Algo{
   			k := k + 1
 		retourne s */
 	
-	public int recuit(Graphe G, Sommet start) throws InvalidArgumentException{
+	public RS recuit(Graphe G, Sommet start) throws InvalidArgumentException{
 		if(!G.getSommets().contains(start))
 			throw new InvalidArgumentException("Sommet absent du graphe");
-		int solOpt = init(G); // Voisinage de la sol courante = 1 swap de sommets
+		solOpt = init(G); // Voisinage de la sol courante = 1 swap de sommets
 		int step = 0;
 		int solCheck = 0;
 		int temp = init_temp(solOpt, G, start);
@@ -47,7 +59,7 @@ public class RS extends Algo{
 			temp *= lambda;
 		}
 		while(step < MAX_STEP && solCheck != solOpt);
-		return solOpt;
+		return new RS(class1opt, class2opt, solOpt);
 		
 	}
 	
