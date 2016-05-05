@@ -12,7 +12,7 @@ import main.InvalidArgumentException;
 
 public class Tabou extends Algo{
 	public int tabou(Graphe G, Sommet start) throws InvalidArgumentException{
-		if(!class1.contains(start) && !class2.contains(start))
+		if(!G.getSommets().contains(start))
 			throw new InvalidArgumentException("Sommet absent du graphe");
 		int solOpt = init(G); // Voisinage de la sol courante = 1 swap de sommets
 		int step = 0;

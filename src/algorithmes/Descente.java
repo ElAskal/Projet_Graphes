@@ -10,7 +10,7 @@ import main.InvalidArgumentException;
 public class Descente extends Algo{
 	
 	public int descente(Graphe G, Sommet start, boolean meta) throws InvalidArgumentException{
-		if(!class1.contains(start) && !class2.contains(start))
+		if(!G.getSommets().contains(start))
 			throw new InvalidArgumentException("Sommet absent du graphe");
 		int solOpt = init(G); // Voisinage de la sol courante = 1 swap de sommets
 		if(!meta) // On peut vouloir arrêter la descente pour comparer les résultats avec les autres algos

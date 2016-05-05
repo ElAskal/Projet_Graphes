@@ -18,6 +18,7 @@ public class Algo {
 	public int init(Graphe G) throws InvalidArgumentException{
 		if(G.getSommets().size() < 2)
 			throw new InvalidArgumentException("Graphe vide ou à un seul sommet");
+		clean();
 		setMaxStep(G);
 		Iterator<Sommet> it = G.getSommets().iterator();
 		while(it.hasNext()){
@@ -70,6 +71,13 @@ public class Algo {
 	
 	public void setMaxStep(Graphe G){
 		MAX_STEP = (int) Math.pow(G.getSommets().size(), 3);
+	}
+	
+	public void clean(){
+		class1.clear();
+		class2.clear();
+		class1opt.clear();
+		class2opt.clear();
 	}
 
 }

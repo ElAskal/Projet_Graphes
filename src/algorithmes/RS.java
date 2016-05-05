@@ -21,7 +21,7 @@ public class RS extends Algo{
 		retourne s */
 	
 	public int recuit(Graphe G, Sommet start) throws InvalidArgumentException{
-		if(!class1.contains(start) && !class2.contains(start))
+		if(!G.getSommets().contains(start))
 			throw new InvalidArgumentException("Sommet absent du graphe");
 		int solOpt = init(G); // Voisinage de la sol courante = 1 swap de sommets
 		int step = 0;
