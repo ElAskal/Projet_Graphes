@@ -17,7 +17,7 @@ public class Algo {
 	
 	public int init(Graphe G) throws InvalidArgumentException{
 		if(G.getSommets().size() < 2)
-			throw new InvalidArgumentException("Graphe à un seul sommet");
+			throw new InvalidArgumentException("Graphe vide ou à un seul sommet");
 		Iterator<Sommet> it = G.getSommets().iterator();
 		while(it.hasNext()){
 			Sommet s = it.next();
@@ -29,7 +29,9 @@ public class Algo {
 		return calculSol();
 	}
 	
-	public boolean estEquilibre(Graphe G){
+	public boolean estEquilibre(Graphe G) throws InvalidArgumentException{
+		if(G.getSommets().size() < 2)
+			throw new InvalidArgumentException("Graphe vide ou à un seul sommet");
 		if(class1.size() == class2.size() || Math.max(class1.size(), class2.size()) / G.getSommets().size() > Algo.SAME_APPROX)
 			return true;
 		return false;
@@ -48,7 +50,7 @@ public class Algo {
 		return sol;
 	}
 	
-	public void generateSolVoisine(Graphe G, Sommet s){
+	public void generateSolVoisine(Graphe G, Sommet s) throws InvalidArgumentException{
 		if(class1.contains(s)){
 			class1.remove(s);
 			class2.add(s);

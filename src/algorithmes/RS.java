@@ -51,7 +51,7 @@ public class RS extends Algo{
 		
 	}
 	
-	public int init_temp(int solOpt, Graphe G, Sommet start){
+	public int init_temp(int solOpt, Graphe G, Sommet start) throws InvalidArgumentException{
 		class1opt = class1; // Save init of class
 		class2opt = class2;
 		int temp = 0;
