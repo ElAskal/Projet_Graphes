@@ -23,9 +23,9 @@ public class BFS extends Algo{
 	}
 
 	private boolean exploré[]; // Vrai s'il y a un chemin entre le sommet source et le sommet considéré.
-	private int bestSol;
 
 	public BFS bfs(Graphe G, Sommet s) throws InvalidArgumentException{
+		clean();
 		Queue<Sommet> q = new LinkedList<Sommet>();
 		Stack<Sommet> stack = new Stack<Sommet>();
 		exploré[s.getLabel() - 1] = true;
@@ -53,7 +53,7 @@ public class BFS extends Algo{
 				class2.add(w);
 				exploré[w.getLabel()- 1] = false;
 			}
-			if (calculSol() < bestSol)
+			if (calculSol() < solOpt)
 			{
 				if(class1.contains(w) || class2.contains(w))
 				{
@@ -61,34 +61,34 @@ public class BFS extends Algo{
 					{
 						class1opt = class1;
 						class2opt = class2;
-						bestSol = calculSol();
+						solOpt = calculSol();
 					}
 					if (class1.contains(s))
-						{
-							class1.remove(w.getLabel() - 1);
-						}
-					else
-						{
-							class2.remove(w.getLabel() - 1);
-						}
-					}
-				}
-				else 
-				{
-					Iterator<Sommet> it2 = w.getVoisins().iterator();
-					while(it2.hasNext())
 					{
-						Sommet x = it2.next();
-						if (!class1.contains(x) && !class2.contains(x))
-						{
-							x.setParent(w);
-							q.add(x);
-						}
+						class1.remove(w.getLabel() - 1);
+					}
+					else
+					{
+						class2.remove(w.getLabel() - 1);
 					}
 				}
 			}
-		return new BFS(class1opt, class2opt, bestSol);
+			else 
+			{
+				Iterator<Sommet> it2 = w.getVoisins().iterator();
+				while(it2.hasNext())
+				{
+					Sommet x = it2.next();
+					if (!class1.contains(x) && !class2.contains(x))
+					{
+						x.setParent(w);
+						q.add(x);
+					}
+				}
+			}
 		}
+		return new BFS(class1opt, class2opt, solOpt);
 	}
+}
 
 

@@ -9,12 +9,12 @@ import main.InvalidArgumentException;
 
 public class Algo {
 	protected static int MAX_STEP = 1000; // Peut être adapté en fonction du graphe avec setMaxStep() 
-	private static final double SAME_APPROX = 0.7;
+	private static final double SAME_APPROX = 0.7; // Notion d'à peu près équitable
 	ArrayList<Sommet> class1 = new ArrayList<Sommet>();
 	ArrayList<Sommet> class2 = new ArrayList<Sommet>();
 	ArrayList<Sommet> class1opt = new ArrayList<Sommet>();
 	ArrayList<Sommet> class2opt = new ArrayList<Sommet>();
-	int solOpt;
+	int solOpt = Integer.MAX_VALUE;
 	
 	public Algo(ArrayList<Sommet> class1opt,
 			ArrayList<Sommet> class2opt, int solOpt) {
@@ -25,7 +25,7 @@ public class Algo {
 	}
 	
 	public Algo(){
-		
+		super();
 	}
 
 	public int init(Graphe G) throws InvalidArgumentException{
