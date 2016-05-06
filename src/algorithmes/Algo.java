@@ -92,6 +92,9 @@ public class Algo {
 	}
 	
 	public String toString(){
-		return class1opt.toString() + class2opt.toString() + solOpt;
+		String s = "\tTaille de la classe 1 : " + class1opt.size() + "\n";
+		s += "\tTaille de la classe 2 : " + class2opt.size() + "\n";
+		s += "\tPoids des arêtes intra-classes : " + solOpt + "\n";
+		return s;
 	}
 }
