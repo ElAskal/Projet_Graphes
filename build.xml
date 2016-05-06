@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ======================================================================                                                       
+  
+Compilation du projet Projet_Graphes
+                                                               
+====================================================================== -->
+<project name="Projet_Graphes" default="default">
+  <property name="src.dir" location="src" />
+  <property name="bin.dir" location="bin" />
+  <property name="graphe.dir" location="Graphes" />
+  <property name="resultats.dir" location="resultats" />
+	
+ <description>
+   compilation du projet pdp-gamma
+  </description>
+  <!-- ================================= 
+       target: default              
+       ================================= -->
+<target name="default" depends="comp, jar" description="compilation du projet Projet_Graphes">
+	<mkdir dir="${resultats.dir}"/>
+		
+</target>
+	
+<!-- ================================= 
+	 target: comp            
+	 ================================= -->
+  <target name="comp" depends="" description="compilation
+     du projet Projet_Graphes">
+	<mkdir dir="${bin.dir}" />
+	<javac 
+	includeantruntime="false"
+  	srcdir="${src.dir}"
+	destdir="${bin.dir}" 
+	debug="on" />
+	    
+  </target>
+	<!-- ================================= 
+	     target: jar            
+	     ================================= -->
+		<target name="jar" depends="comp">
+		    <jar destfile="Projet_Graphes.jar" basedir = "${bin.dir}">
+		    	<fileset dir="${graphe.dir}"/>
+		    	<manifest>
+		    		<attribute name = "Main-Class" value = "main.Main"/>
+		    	</manifest>
+		    </jar>
+		</target>
+	  <!-- ================================= 
+	       target: clean            
+	       ================================= -->
+	  <target name="clean" description="Nettoyage des fichiers compilés">
+	  		<delete file="Projet_Graphes.jar"/>
+			<delete dir="${bin.dir}"/>
+	  	    <delete dir="${resultats.dir}"/>
+	  </target>
+</project>

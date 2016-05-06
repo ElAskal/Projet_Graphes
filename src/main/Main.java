@@ -1,17 +1,14 @@
 package main;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import graphe.Arête;
 import graphe.Graphe;
 import graphe.Sommet;
-import algorithmes.Algo;
 import algorithmes.BFS;
 import algorithmes.Descente;
 import algorithmes.RS;
@@ -155,7 +152,7 @@ public class Main {
 			String s = "#### Résultats pour le graphe à " + g.getSommets().size() + " sommets ####\n\n";
 			File file; 
 			FileWriter fw;
-			file = new File("../resultats/resultat_BFS.txt");
+			file = new File("resultats/resultat_BFS.txt");
 			if (g.getSommets().size() <= 15)
 			{				
 				if (!file.exists())
@@ -170,7 +167,7 @@ public class Main {
 				fw.append(s + b.toString() + "\tExécuté en : " + temps + "ms\n\n");
 				fw.close();
 			}
-			file = new File("../resultats/resultat_descente.txt");
+			file = new File("resultats/resultat_descente.txt");
 			if (!file.exists())
 			{
 				file.createNewFile();
@@ -186,7 +183,7 @@ public class Main {
 				temps = d.setDescente(g, d, false);
 			fw.append(s + d.toString() + "\tExécuté en : " + temps + "ms\n\n");
 			fw.close();
-			file = new File("../resultats/resultat_recuit.txt");
+			file = new File("resultats/resultat_recuit.txt");
 			if (!file.exists())
 			{
 				file.createNewFile();
@@ -198,7 +195,7 @@ public class Main {
 			temps = r.setRS(g, r);
 			fw.append(s + r.toString() + "\tExécuté en : " + temps + "ms\n\n");
 			fw.close();
-			file = new File("../resultats/resultat_tabou.txt");
+			file = new File("resultats/resultat_tabou.txt");
 			if (!file.exists())
 			{
 				file.createNewFile();

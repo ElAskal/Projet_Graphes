@@ -1,6 +1,4 @@
 package algorithmes;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,6 +33,7 @@ public class BFS extends Algo{
 		return (i >= -1) && (i <= 1);
 	}
 
+	@SuppressWarnings("unchecked")
 	public BFS bfs(Graphe G) throws InvalidArgumentException, IOException{
 		clean();
 		Queue<Sommet> q = new LinkedList<Sommet>();
