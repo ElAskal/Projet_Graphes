@@ -138,7 +138,7 @@ public class Main {
 	}
 	
 	public static void main(String[] args) throws IOException, InvalidArgumentException{
-		String path = "Graphes/trenteSommets.txt";
+		String path = "Graphes/quinzeSommets.txt";
 		Graphe g = parse(path);
 		Descente d = new Descente();
 		d.setDescente(g, d, false);

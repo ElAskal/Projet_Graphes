@@ -68,6 +68,8 @@ public class RS extends Algo{
 	public int init_temp(Graphe G) throws InvalidArgumentException{
 		if(G.getArêtes().size() == 0)
 			throw new InvalidArgumentException("Graphe sans arêtes");
+		if (G.getSommets().size() <= 10) // Pour des petits graphes, la température est superflue
+			return 1;
 		class1opt = (ArrayList<Sommet>) class1.clone(); // Save init of class
 		class2opt = (ArrayList<Sommet>) class2.clone();
 		int temp = 0;
