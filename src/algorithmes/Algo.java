@@ -8,7 +8,7 @@ import graphe.Sommet;
 import main.InvalidArgumentException;
 
 public class Algo {
-	protected static int MAX_STEP = 1000; // Peut être adapté en fonction du graphe avec setMaxStep() 
+	protected static int MAX_STEP = 20000; // Peut être adapté en fonction du graphe avec setMaxStep() 
 	private static final double SAME_APPROX_PLUS = 0.6; // Notion d'à peu près équitable
 	private static final double SAME_APPROX_MOINS = 0.4; // Notion d'à peu près équitable
 	ArrayList<Sommet> class1 = new ArrayList<Sommet>();
@@ -81,7 +81,8 @@ public class Algo {
 	}
 
 	public void setMaxStep(Graphe G){
-		MAX_STEP = (int) Math.pow(G.getSommets().size(), 3);
+		int tmp = MAX_STEP;
+		MAX_STEP = Math.min((int) Math.pow(G.getSommets().size(), 3), tmp);
 	}
 	
 	public void clean(){
