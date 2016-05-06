@@ -3,6 +3,7 @@ package algorithmes;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Random;
 
 import graphe.Graphe;
 import graphe.ObjetTabou;
@@ -25,6 +26,9 @@ public class Tabou extends Algo{
 	@SuppressWarnings("unchecked")
 	public Tabou tabou(Graphe G) throws InvalidArgumentException{
 		solOpt = init(G); // Voisinage de la sol courante = 1 swap de sommets
+		Random rand = new Random();
+		class1.add(class1.size(), class2.remove(rand.nextInt(class2.size())));
+		class2.add(class2.size(), class1.remove(rand.nextInt(class1.size())));
 		int step = 0;
 		Queue<ObjetTabou> tabou = new LinkedList<ObjetTabou>();
 		int solCheck = 0;
