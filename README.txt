@@ -8,3 +8,7 @@ Pour utiliser notre projet :
 La commande ant clean permet de supprimer les répertoires bin et resultats ainsi que le .jar généré.
 
 Projet compatible avec Java 7 et 8.
+
+Le graphe dixMilleSommets.txt n'est pas inclus dans notre projet car il est trop volumineux (l'envoi par mail
+d'un fichier d'un tel poids aurait été calamiteux).
+Il est cependant possible de le récupérer localement (à ajouter au dossier Graphes) afin de le tester.
