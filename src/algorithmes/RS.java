@@ -37,7 +37,7 @@ public class RS extends Algo{
 		solOpt = init(G); // Voisinage de la sol courante = 1 swap de sommets
 		int step = 0;
 		int solCheck = 0;
-		int temp = init_temp(solOpt, G);
+		int temp = init_temp(G);
 		do{
 			solCheck = solOpt;
 			for(int i = 0; i < class1.size(); i++){
@@ -57,7 +57,7 @@ public class RS extends Algo{
 			}
 			temp *= lambda;
 			if(temp == 0)
-				temp = init_temp(solOpt, G);
+				temp = init_temp(G);
 		}
 		while(step < MAX_STEP && solCheck != solOpt);
 		return new RS(class1opt, class2opt, solOpt);
@@ -65,7 +65,7 @@ public class RS extends Algo{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public int init_temp(int solOpt, Graphe G) throws InvalidArgumentException{
+	public int init_temp(Graphe G) throws InvalidArgumentException{
 		if(G.getArêtes().size() == 0)
 			throw new InvalidArgumentException("Graphe sans arêtes");
 		class1opt = (ArrayList<Sommet>) class1.clone(); // Save init of class
@@ -81,9 +81,10 @@ public class RS extends Algo{
 		int size_v = voisins.size();
 		Iterator<Sommet> it = voisins.iterator();
 		while(it.hasNext()){
-			it.next();
-			class1.add(class1.size(), class2.remove(0));
-			class2.add(class2.size(), class1.remove(class1.size() - 2));
+			int pick = (int) (Math.random() * (Math.min(class1.size(), class2.size()) - 1));
+			Sommet s = it.next();
+			class1.add(class1.size(), class2.remove(pick));
+			class2.add(class2.size(), class1.remove(class1.size() - pick));
 			int solAct = calculSol();
 			moyenne+= solAct;
 		}
