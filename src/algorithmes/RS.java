@@ -53,11 +53,11 @@ public class RS extends Algo{
 					}
 					if(step >= MAX_STEP)
 						return new RS(class1opt, class2opt, solOpt);
+					temp *= lambda;
+					if(temp == 0)
+						temp = 1;
 				}
 			}
-			temp *= lambda;
-			if(temp == 0)
-				temp = init_temp(G);
 		}
 		while(step < MAX_STEP && solCheck != solOpt);
 		return new RS(class1opt, class2opt, solOpt);
