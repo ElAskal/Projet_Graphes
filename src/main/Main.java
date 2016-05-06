@@ -1,13 +1,18 @@
 package main;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import graphe.Arête;
 import graphe.Graphe;
 import graphe.Sommet;
+import algorithmes.Algo;
+import algorithmes.BFS;
 import algorithmes.Descente;
 import algorithmes.RS;
 import algorithmes.Tabou;
@@ -138,16 +143,73 @@ public class Main {
 	}
 	
 	public static void main(String[] args) throws IOException, InvalidArgumentException{
-		String path = "Graphes/quinzeSommets.txt";
-		Graphe g = parse(path);
-		Descente d = new Descente();
-		d.setDescente(g, d, false);
-		System.out.println("Descente :"+d.toString()+"\n");
-		RS rs = new RS();
-		rs.setRS(g, rs);
-		System.out.println("RS :"+rs.toString()+"\n");
-		Tabou tabou = new Tabou();
-		tabou.setTabou(g, tabou);
-		System.out.println("Tabou :"+tabou.toString()+"\n");
+		if (args.length < 1)
+		{
+			System.out.println("Paramètre manquant");
+		}
+		else
+		{
+			long temps;
+			String path = args[0];
+			Graphe g = parse(path);
+			String s = "#### Résultats pour le graphe à " + g.getSommets().size() + " sommets ####\n\n";
+			File file; 
+			FileWriter fw;
+			file = new File("../resultats/resultat_BFS.txt");
+			if (g.getSommets().size() <= 15)
+			{				
+				if (!file.exists())
+				{
+					file.createNewFile();
+					fw = new FileWriter(file);
+				}
+				else
+					fw = new FileWriter(file, true);
+				BFS b = new BFS();
+				temps = b.setBFS(g,  b);
+				fw.append(s + b.toString() + "\tExécuté en : " + temps + "ms\n\n");
+				fw.close();
+			}
+			file = new File("../resultats/resultat_descente.txt");
+			if (!file.exists())
+			{
+				file.createNewFile();
+				fw = new FileWriter(file);
+			}
+			else
+				fw = new FileWriter(file, true);
+			Descente d = new Descente();
+
+			if (g.getSommets().size() > 30)
+				temps = d.setDescente(g, d, true);
+			else
+				temps = d.setDescente(g, d, false);
+			fw.append(s + d.toString() + "\tExécuté en : " + temps + "ms\n\n");
+			fw.close();
+			file = new File("../resultats/resultat_recuit.txt");
+			if (!file.exists())
+			{
+				file.createNewFile();
+				fw = new FileWriter(file);
+			}
+			else
+				fw = new FileWriter(file, true);
+			RS r = new RS();
+			temps = r.setRS(g, r);
+			fw.append(s + r.toString() + "\tExécuté en : " + temps + "ms\n\n");
+			fw.close();
+			file = new File("../resultats/resultat_tabou.txt");
+			if (!file.exists())
+			{
+				file.createNewFile();
+				fw = new FileWriter(file);
+			}
+			else
+				fw = new FileWriter(file, true);
+			Tabou t = new Tabou();
+			temps = t.setTabou(g, t);
+			fw.append(s + t.toString() + "\tExécuté en : " + temps + "ms\n\n");
+			fw.close();
+		}
 	}
 }

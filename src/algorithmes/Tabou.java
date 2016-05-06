@@ -19,8 +19,11 @@ public class Tabou extends Algo{
 		super();
 	}
 	
-	public void setTabou(Graphe G, Tabou t) throws InvalidArgumentException{
+	public long setTabou(Graphe G, Tabou t) throws InvalidArgumentException{
+		long chrono1 = java.lang.System.currentTimeMillis() ; 
 		t = tabou(G);
+		long chrono2 = java.lang.System.currentTimeMillis() ;
+		return (chrono2 - chrono1);
 	}
 
 	@SuppressWarnings("unchecked")

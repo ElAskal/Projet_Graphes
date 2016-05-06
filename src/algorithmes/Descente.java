@@ -16,8 +16,11 @@ public class Descente extends Algo{
 		super();
 	}
 	
-	public void setDescente(Graphe G, Descente d, boolean meta) throws InvalidArgumentException{
+	public long setDescente(Graphe G, Descente d, boolean meta) throws InvalidArgumentException{
+		long chrono1 = java.lang.System.currentTimeMillis() ; 
 		d = descente(G, meta);
+		long chrono2 = java.lang.System.currentTimeMillis() ; 
+		return (chrono2 - chrono1);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -16,8 +16,11 @@ public class RS extends Algo{
 		super();
 	}
 	
-	public void setRS(Graphe G, RS r) throws InvalidArgumentException{
+	public long setRS(Graphe G, RS r) throws InvalidArgumentException{
+		long chrono1 = java.lang.System.currentTimeMillis() ; 
 		r = recuit(G);
+		long chrono2 = java.lang.System.currentTimeMillis() ;
+		return (chrono2 - chrono1);
 	}
 
 	private static final double lambda = 0.99;

@@ -1,4 +1,6 @@
 package algorithmes;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,8 +22,11 @@ public class BFS extends Algo{
 		super();
 	}
 	
-	public void setBFS(Graphe G, BFS b) throws InvalidArgumentException, IOException{
+	public long setBFS(Graphe G, BFS b) throws InvalidArgumentException, IOException{
+		long chrono1 = java.lang.System.currentTimeMillis() ;
 		b = bfs(G);
+		long chrono2 = java.lang.System.currentTimeMillis() ;
+		return (chrono2 - chrono1);
 	}
 	
 	public boolean estParfaitementEquilibre()
@@ -30,7 +35,6 @@ public class BFS extends Algo{
 		return (i >= -1) && (i <= 1);
 	}
 
-	@SuppressWarnings("unchecked")
 	public BFS bfs(Graphe G) throws InvalidArgumentException, IOException{
 		clean();
 		Queue<Sommet> q = new LinkedList<Sommet>();
@@ -61,7 +65,6 @@ public class BFS extends Algo{
 			}
 				if(class1.contains(w) || class2.contains(w))
 				{
-					System.out.println("Ping");
 					if(estParfaitementEquilibre() && (class1.size() + class2.size() == G.getSommets().size()) && (calculSol() < solOpt))
 					{
 						setClass1opt((ArrayList<Sommet>) class1.clone());
@@ -75,7 +78,6 @@ public class BFS extends Algo{
 					}
 					else
 					{
-						System.out.println("Pong");
 						class2.remove(w);
 					}
 				}			
@@ -101,25 +103,13 @@ public class BFS extends Algo{
 							q.add(x);
 						}
 					}
-					System.out.println(calculSol());
 				}
-				System.out.println(class1.toString());
-				System.out.println(class2.toString());			
-				System.out.println(class1opt.toString());
-				System.out.println(class2opt.toString());
-				System.out.println(q.toString());
-				System.out.println(stack.toString());
-			System.out.println(solOpt);
-			System.out.println("\n _____\n");
+
 		}
 		}
 		return new BFS(class1opt, class2opt, solOpt);
 	}
 	
-	public String toString()
-	{
-		return class1opt.toString() + " \n" + class2opt.toString() + "\n" + solOpt;
-	}
 }
 
 
