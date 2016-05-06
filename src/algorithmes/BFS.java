@@ -22,11 +22,17 @@ public class BFS extends Algo{
 		super();
 	}
 	
-	public void setBFS(Graphe G, Sommet s, BFS b) throws InvalidArgumentException, IOException{
-		b = bfs(G, s);
+	public void setBFS(Graphe G, BFS b) throws InvalidArgumentException, IOException{
+		b = bfs(G);
+	}
+	
+	public boolean estParfaitementEquilibre()
+	{
+		int i = class1.size() - class2.size();
+		return (i >= -1) && (i <= 1);
 	}
 
-	public BFS bfs(Graphe G, Sommet s) throws InvalidArgumentException, IOException{
+	public BFS bfs(Graphe G) throws InvalidArgumentException, IOException{
 		clean();
 		Queue<Sommet> q = new LinkedList<Sommet>();
 		Stack<Sommet> stack = new Stack<Sommet>();
@@ -34,14 +40,18 @@ public class BFS extends Algo{
 		Iterator<Sommet> it = G.getSommets().iterator();
 		while(it.hasNext())
 			estDansClass1.put(it.next().getLabel(), false);
+		Iterator<Sommet> parcours = G.getSommets().iterator();
+		while (parcours.hasNext())
+		{
+			Sommet s = parcours.next();
 		q.add(s);
 		stack.add(s);
-		while(!(stack.isEmpty())){
+		while(!(stack.isEmpty()) || !(q.isEmpty())){
 			Sommet w ;
 			if (!q.isEmpty())
 			{
 				w = q.remove();
-				if (stack.peek() != w)
+				if (!stack.isEmpty() && stack.peek() != w)
 				{
 					stack.add(w);
 				}
@@ -50,11 +60,10 @@ public class BFS extends Algo{
 			{
 				w = stack.pop();
 			}
-			System.out.println(calculSol());
 				if(class1.contains(w) || class2.contains(w))
 				{
 					System.out.println("Ping");
-					if(estEquilibre(G) && (class1.size() + class2.size() == G.getSommets().size()) && (calculSol() < solOpt))
+					if(estParfaitementEquilibre() && (class1.size() + class2.size() == G.getSommets().size()) && (calculSol() < solOpt))
 					{
 						setClass1opt((ArrayList<Sommet>) class1.clone());
 						setClass2opt((ArrayList<Sommet>) class2.clone());
@@ -93,11 +102,17 @@ public class BFS extends Algo{
 							q.add(x);
 						}
 					}
+					System.out.println(calculSol());
 				}
-			System.out.println(class1.toString());
-			System.out.println(class2.toString());
+				System.out.println(class1.toString());
+				System.out.println(class2.toString());			
+				System.out.println(class1opt.toString());
+				System.out.println(class2opt.toString());
+				System.out.println(q.toString());
+				System.out.println(stack.toString());
 			System.out.println(solOpt);
 			System.out.println("\n _____\n");
+		}
 		}
 		return new BFS(class1opt, class2opt, solOpt);
 	}
