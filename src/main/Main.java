@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import graphe.Arête;
 import graphe.Graphe;
 import graphe.Sommet;
-import algorithmes.BFS;
 import algorithmes.Descente;
 import algorithmes.RS;
 import algorithmes.Tabou;

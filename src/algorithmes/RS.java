@@ -81,10 +81,10 @@ public class RS extends Algo{
 		int size_v = voisins.size();
 		Iterator<Sommet> it = voisins.iterator();
 		while(it.hasNext()){
-			int pick = (int) (Math.random() * (Math.min(class1.size(), class2.size()) - 1));
-			Sommet s = it.next();
+			it.next();
+			int pick = (int) (Math.random() * (Math.min(class1.size(), class2.size())));
 			class1.add(class1.size(), class2.remove(pick));
-			class2.add(class2.size(), class1.remove(class1.size() - pick));
+			class2.add(class2.size(), class1.remove(0));
 			int solAct = calculSol();
 			moyenne+= solAct;
 		}
